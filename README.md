@@ -79,3 +79,5 @@ erDiagram
   employee ||--o{ employee_events : "employee_id"
   notes }o--o{ employee_events : ""
 ```
+
+> Project setup and GitHub link was successfuly tested
