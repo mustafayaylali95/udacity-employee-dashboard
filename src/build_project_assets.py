@@ -7,7 +7,7 @@ import json
 from sqlite3 import connect
 from datetime import timedelta, date
 from sklearn.linear_model import LogisticRegression
-from scipy.stats import norm, expon, uniform, skewnorm
+from scipy.stats import norm, expon, skewnorm
 
 
 cwd = Path('.').resolve()
@@ -51,7 +51,10 @@ profiles = {
 }
 
 employees = {}
-def is_recruited(x): return np.random.choice([0, 1], p=[1 - x, x])
+
+
+def is_recruited(x):
+    return np.random.choice([0, 1], p=[1 - x, x])
 
 
 for employee_id in range(1, 26):

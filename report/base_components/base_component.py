@@ -7,7 +7,7 @@ class BaseComponent:
         return component
 
     def component_data(self, entity_id, model):
-        raise NotImplemented
+        raise NotImplementedError
 
     def __call__(self, entity_id, model):
 

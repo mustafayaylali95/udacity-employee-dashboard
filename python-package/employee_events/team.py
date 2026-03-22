@@ -2,7 +2,7 @@
 from .query_base import QueryBase
 
 # Import dependencies for sql execution
-from .sql_execution import QueryMixin
+# Import dependencies for sql execution
 
 # Create a subclass of QueryBase
 # called  `Team`
@@ -25,7 +25,7 @@ class Team(QueryBase):
         # the team_name and team_id columns
         # from the team table for all teams
         # in the database
-        query_string = f"""
+        query_string = """
             SELECT team_name
                  , team_id
             FROM team
