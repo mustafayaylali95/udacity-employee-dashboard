@@ -1,3 +1,4 @@
+# pylint: disable=C0114, C0115, C0116, C0103
 from fasthtml.common import *
 import matplotlib.pyplot as plt
 
@@ -90,7 +91,7 @@ class LineChart(MatplotlibViz):
             df.plot(ax=ax)
         else:
             # EĞER TABLO BOŞSA, EKRANA MESAJ YAZDIR VE ÇÖKMESİNİ ENGELLE
-            ax.text(0.5, 0.5, "No data available for this selection", 
+            ax.text(0.5, 0.5, "No data available for this selection",
                     horizontalalignment='center', verticalalignment='center', fontsize=12)
 
         # pass the axis variable to the `.set_axis_styling` method
@@ -127,14 +128,14 @@ class BarChart(MatplotlibViz):
                 pred = risk_scores.mean()
             else:
                 pred = risk_scores[0]
-                
+
             ax.barh([''], [pred])
             ax.set_xlim(0, 1)
         else:
             # EĞER TABLO BOŞSA MODELİ ÇALIŞTIRMA, EKRANA MESAJ YAZDIR
             ax.barh([''], [0])
             ax.set_xlim(0, 1)
-            ax.text(0.5, 0, "No data available", 
+            ax.text(0.5, 0, "No data available",
                     horizontalalignment='center', verticalalignment='center', fontsize=12)
 
         ax.set_title('Predicted Recruitment Risk', fontsize=20)
