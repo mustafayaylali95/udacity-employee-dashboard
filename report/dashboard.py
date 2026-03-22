@@ -74,42 +74,26 @@ class LineChart(MatplotlibViz):
     def visualization(self, asset_id, model):
 
         # Pass the `asset_id` argument to
-        # the model's `event_counts` method to
-        # receive the x (Day) and y (event count)
+        # the model's `event_counts` method
         df = model.event_counts(asset_id)
 
-        # Use the pandas .fillna method to fill nulls with 0
-        df = df.fillna(0)
-
-        # User the pandas .set_index method to set
-        # the date column as the index
-        df = df.set_index('event_date')
-
-        # Sort the index
-        df = df.sort_index()
-
-        # Use the .cumsum method to change the data
-        # in the dataframe to cumulative counts
-        df = df.cumsum()
-
-        # Set the dataframe columns to the list
-        # ['Positive', 'Negative']
-        df.columns = ['Positive', 'Negative']
-
         # Initialize a pandas subplot
-        # and assign the figure and axis
-        # to variables
         fig, ax = plt.subplots()
 
-        # call the .plot method for the
-        # cumulative counts dataframe
-        df.plot(ax=ax)
+        # EĞER TABLO BOŞ DEĞİLSE İŞLEMLERE DEVAM ET (GÜVENLİK AĞI)
+        if not df.empty:
+            df = df.fillna(0)
+            df = df.set_index('event_date')
+            df = df.sort_index()
+            df = df.cumsum()
+            df.columns = ['Positive', 'Negative']
+            df.plot(ax=ax)
+        else:
+            # EĞER TABLO BOŞSA, EKRANA MESAJ YAZDIR VE ÇÖKMESİNİ ENGELLE
+            ax.text(0.5, 0.5, "No data available for this selection", 
+                    horizontalalignment='center', verticalalignment='center', fontsize=12)
 
-        # pass the axis variable
-        # to the `.set_axis_styling`
-        # method
-        # Use keyword arguments to set
-        # the border color and font color to black.
+        # pass the axis variable to the `.set_axis_styling` method
         self.set_axis_styling(ax, bordercolor='black', fontcolor='black')
 
         # Set title and labels for x and y axis
@@ -123,54 +107,38 @@ class LineChart(MatplotlibViz):
 class BarChart(MatplotlibViz):
 
     # Create a `predictor` class attribute
-    # assign the attribute to the output
-    # of the `load_model` utils function
     predictor = load_model()
 
     # Overwrite the parent class `visualization` method
-    # Use the same parameters as the parent
     def visualization(self, asset_id, model):
 
-        # Using the model and asset_id arguments
-        # pass the `asset_id` to the `.model_data` method
-        # to receive the data that can be passed to the machine
-        # learning model
+        # Pass the `asset_id` to the `.model_data` method
         df = model.model_data(asset_id)
-
-        # Using the predictor class attribute
-        # pass the data to the `predict_proba` method
-        pred_proba = self.predictor.predict_proba(df)
-
-        # Index the second column of predict_proba output
-        # The shape should be (<number of records>, 1)
-        risk_scores = pred_proba[:, 1]
-
-        # Below, create a `pred` variable set to
-        # the number we want to visualize
-        #
-        # If the model's name attribute is "team"
-        # We want to visualize the mean of the predict_proba output
-        if model.name == 'team':
-            pred = risk_scores.mean()
-
-        # Otherwise set `pred` to the first value
-        # of the predict_proba output
-        else:
-            pred = risk_scores[0]
 
         # Initialize a matplotlib subplot
         fig, ax = plt.subplots()
 
-        # Run the following code unchanged
-        ax.barh([''], [pred])
-        ax.set_xlim(0, 1)
+        # EĞER TABLO BOŞ DEĞİLSE TAHMİN YAP (GÜVENLİK AĞI)
+        if not df.empty:
+            pred_proba = self.predictor.predict_proba(df)
+            risk_scores = pred_proba[:, 1]
+
+            if model.name == 'team':
+                pred = risk_scores.mean()
+            else:
+                pred = risk_scores[0]
+                
+            ax.barh([''], [pred])
+            ax.set_xlim(0, 1)
+        else:
+            # EĞER TABLO BOŞSA MODELİ ÇALIŞTIRMA, EKRANA MESAJ YAZDIR
+            ax.barh([''], [0])
+            ax.set_xlim(0, 1)
+            ax.text(0.5, 0, "No data available", 
+                    horizontalalignment='center', verticalalignment='center', fontsize=12)
+
         ax.set_title('Predicted Recruitment Risk', fontsize=20)
-
-        # pass the axis variable
-        # to the `.set_axis_styling`
-        # method
         self.set_axis_styling(ax, bordercolor='black', fontcolor='black')
-
 # Create a subclass of combined_components/CombinedComponent
 # called Visualizations
 

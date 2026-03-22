@@ -81,3 +81,16 @@ erDiagram
 ```
 
 > Project setup and GitHub link was successfuly tested
+
+## Environment Setup and Deployment Instructions
+
+Follow these steps to set up the code environment and run the dashboard locally:
+
+## Environment Setup and Deployment Instructions
+
+Follow these steps to set up the code environment and run the dashboard locally:
+
+**1. Clone the repository:**
+```bash
+git clone [https://github.com/mustafayaylali95/udacity-employee-dashboard.git](https://github.com/mustafayaylali95/udacity-employee-dashboard.git)
+cd udacity-employee-dashboard
