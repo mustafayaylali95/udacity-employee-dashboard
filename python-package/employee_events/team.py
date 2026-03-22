@@ -6,6 +6,8 @@ from .sql_execution import QueryMixin
 
 # Create a subclass of QueryBase
 # called  `Team`
+
+
 class Team(QueryBase):
 
     # Set the class attribute `name`
@@ -17,7 +19,7 @@ class Team(QueryBase):
     # This method should return
     # a list of tuples from an sql execution
     def names(self):
-        
+
         # Query 5
         # Write an SQL query that selects
         # the team_name and team_id columns

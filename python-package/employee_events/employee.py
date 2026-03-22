@@ -7,6 +7,8 @@ from .sql_execution import QueryMixin
 
 # Define a subclass of QueryBase
 # called Employee
+
+
 class Employee(QueryBase):
 
     # Set the class attribute `name`
@@ -18,10 +20,10 @@ class Employee(QueryBase):
     # This method should return a list of tuples
     # from an sql execution
     def names(self):
-        
+
         # Query 3
         # Write an SQL query
-        # that selects two columns 
+        # that selects two columns
         # 1. The employee's full name
         # 2. The employee's id
         # This query should return the data
@@ -38,7 +40,7 @@ class Employee(QueryBase):
     # This method should return a list of tuples
     # from an sql execution
     def username(self, id):
-        
+
         # Query 4
         # Write an SQL query
         # that selects an employees full name

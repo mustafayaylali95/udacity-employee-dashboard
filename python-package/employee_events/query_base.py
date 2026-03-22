@@ -4,6 +4,8 @@ from .sql_execution import QueryMixin
 # Define a class called QueryBase
 # Use inheritance to add methods
 # for querying the employee_events database.
+
+
 class QueryBase(QueryMixin):
 
     # Create a class attribute called `name`
@@ -40,7 +42,7 @@ class QueryBase(QueryMixin):
             ORDER BY event_date
         """
         return self.pandas_query(query_string)
-            
+
     # Define a `notes` method that receives an id argument
     # This function should return a pandas dataframe
     def notes(self, id):

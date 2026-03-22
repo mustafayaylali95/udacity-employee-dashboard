@@ -10,8 +10,10 @@ db_path = Path(__file__).resolve().parent / "employee_events.db"
 
 # OPTION 1: MIXIN
 # Define a class called `QueryMixin`
+
+
 class QueryMixin:
-    
+
     # Define a method named `pandas_query`
     # that receives an sql query as a string
     # and returns the query's result
@@ -35,7 +37,7 @@ class QueryMixin:
         result = cursor.execute(query_string).fetchall()
         connection.close()
         return result
-    
+
 
 # Leave this code unchanged
 def query(func):
@@ -52,5 +54,5 @@ def query(func):
         result = cursor.execute(query_string).fetchall()
         connection.close()
         return result
-    
+
     return run_query
